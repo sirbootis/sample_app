@@ -9,4 +9,8 @@ module ApplicationHelper
       "#{base_title} | #{page_title}"
     end
   end
+
+  def indent_output(output, indentation)
+    output.gsub("\n", "\n" + indentation).html_safe
+  end
 end

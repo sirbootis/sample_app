@@ -2,16 +2,20 @@
 <html>
   <head>
     <title><%= full_title(yield(:title)) %></title>
-    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-    <%= csrf_meta_tags %>
-    <%= render 'layouts/shim' %>
+    <%= indent_output(stylesheet_link_tag("application", media: "all", "data-turbolinks-track" => true), "    ") %>
+    <%= indent_output(javascript_include_tag("application", "data-turbolinks-track" => true), "    ") %>
+    <%= indent_output(csrf_meta_tags, "    ") if !Rails.env.test? %>
+    <%= indent_output(render('layouts/shim'), "    ") %>
   </head>
   <body>
-    <%= render 'layouts/header' %>
+    <%= indent_output(render('layouts/header'), "    ") %>
     <div class="container">
-      <%= yield %>
-      <%= render 'layouts/footer' %>
+      <% flash.each do |key, value| %>
+      <%= content_tag(:div, value, class: "alert alert-#{key}") %>
+      <% end %>
+      <%= indent_output(yield, "      ") %>
+      <%= indent_output(render('layouts/footer'), "      ") %>
+<%= debug(params) if Rails.env.development? %>
     </div>
   </body>
 </html>
