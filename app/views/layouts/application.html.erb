@@ -14,8 +14,7 @@
       <%= content_tag(:div, value, class: "alert alert-#{key}") %>
       <% end %>
       <%= indent_output(yield, "      ") %>
-      <%= indent_output(render('layouts/footer'), "      ") %>
-<%= debug(params) if Rails.env.development? %>
+      <%= indent_output(render('layouts/footer'), "      ") %><%= debug(params) if Rails.env.development? %>
     </div>
   </body>
 </html>
