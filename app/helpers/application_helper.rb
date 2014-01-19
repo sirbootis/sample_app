@@ -10,7 +10,8 @@ module ApplicationHelper
     end
   end
 
-  def indent_output(output, indentation)
+  def indent_output(output, indentation, remove_blank_lines = false)
+    output = output.gsub(/^\s*$\n/, '').gsub(/\n\z/, '') if remove_blank_lines
     output.gsub("\n", "\n" + indentation).html_safe
   end
 end

@@ -1,0 +1,4 @@
+<%= form_for(@user) do |f| %>
+  <%= indent_output(render('fields', f: f), "  ") %>
+  <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
+<% end %>
