@@ -101,6 +101,19 @@ describe "Authentication" do
           it { should have_title('Sign in') }
         end
       end
+
+      describe "in the Microposts controller" do
+
+        describe "submitting to the create action" do
+          before { post microposts_path }
+          specify { expect(response).to redirect_to(signin_path) }
+        end
+
+        describe "submitting to the destroy action" do
+          before { delete micropost_path(FactoryGirl.create(:micropost)) }
+          specify { expect(response).to redirect_to(signin_path) }
+        end
+      end
     end
 
     describe "as wrong user" do
@@ -153,6 +166,17 @@ describe "Authentication" do
       describe "submitting a POST request to the Users#create action" do
         before { post users_path }
         specify { expect(response).to redirect_to(root_url) }
+      end
+
+      describe "when visiting another user's profile page" do
+        before { sign_in user }
+        let(:other_user) { FactoryGirl.create(:user, email: "other@example.com") }
+        let!(:m) { FactoryGirl.create(:micropost, user: other_user) }
+        before { visit user_path(other_user) }
+
+        it "should not show a delete link for the user's microposts" do
+          expect(page).to_not have_link('delete', href: micropost_path(m))
+        end
       end
     end
   end

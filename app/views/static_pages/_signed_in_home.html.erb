@@ -1,0 +1,14 @@
+<div class="row">
+  <aside class="span4">
+    <section>
+      <%= indent_output(render('shared/user_info'), "      ") %>
+    </section>
+    <section>
+      <%= indent_output(render('shared/micropost_form'), "      ") %>
+    </section>
+  </aside>
+  <div class="span8">
+    <h3>Micropost Feed</h3>
+    <%= indent_output(render('shared/feed'), "    ") %>
+  </div>
+</div>
